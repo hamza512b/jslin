@@ -1,0 +1,14 @@
+{
+  "name": "jslin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node --transpileOnly --project ./tsconfig.json ./src/main.ts"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "ts-node": "^10.9.2"
+  }
+}
