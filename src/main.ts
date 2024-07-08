@@ -1,6 +1,8 @@
 import Lexer from "./lexer";
 import fs from "fs";
 import { formatTokenType } from "./tokenType";
+import { Parser } from "./parser";
+import { printAst } from "./astPrinter";
 
 export function run(source: string) {
   const lexer = new Lexer(source);
@@ -13,6 +15,11 @@ export function run(source: string) {
       }`
     );
   }
+
+  const parser = new Parser(tokens);
+  const statements = parser.parse();
+
+  printAst(statements);
 }
 
 export function runFile(path: string) {

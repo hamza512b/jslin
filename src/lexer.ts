@@ -390,6 +390,6 @@ export default class Lexer {
     this.state = LexerState.NONE;
 
     // Report the error
-    throw error;
+    throw error.getMessage();
   }
 }

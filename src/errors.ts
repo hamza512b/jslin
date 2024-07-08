@@ -7,9 +7,7 @@ abstract class LinError {
     this.message = message;
   }
 
-  public report() {
-    // Report the error
-  }
+  public abstract report();
 }
 
 export class LinSyntaxError extends LinError {
@@ -20,6 +18,10 @@ export class LinSyntaxError extends LinError {
     super(message);
     this.line = line;
     this.column = column;
+  }
+
+  public report() {
+    console.log(this.getMessage());
   }
 
   static fromToken(token: Token, message: string): LinSyntaxError {
@@ -45,11 +47,17 @@ export class LinErrorCollection extends LinError {
     this.errors = errors;
   }
 
+  public report() {
+    for (const error of this.errors) {
+      error.report();
+    }
+  }
+
   public reportAndThrow() {
     for (const error of this.errors) {
       error.report();
     }
-    throw this;
+    throw "Compilation failed";
   }
 
   public push(error: LinError) {
