@@ -22,7 +22,7 @@ import {
 import { Token } from "./token";
 import { TokenType } from "./tokenType";
 
-export class Parser {
+export default class Parser {
   private errors = new LinErrorCollection([]);
   private tokens: Token[];
   private current = 0;

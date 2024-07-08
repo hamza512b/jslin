@@ -1,7 +1,10 @@
 DEF FIBONACCI_SEQUENCE n
-    IF n == 0
-        RETURN 0    
-    IF n == 1
-        RETURN 1
-    
+    IF n < 2
+        RETURN n
+        
     RETURN (FIBONACCI_SEQUENCE n - 1) + (FIBONACCI_SEQUENCE n - 2)
+
+INIT before (CLOCK)
+PRINT (FIBONACCI_SEQUENCE 10)
+INIT after (CLOCK)
+PRINT (after - before)

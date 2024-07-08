@@ -55,7 +55,11 @@ export class LinErrorCollection extends LinError {
 
   public reportAndThrow() {
     for (const error of this.errors) {
-      error.report();
+      if (error?.report) {
+        error?.report?.();
+      } else {
+        console.log(error);
+      }
     }
     throw "Compilation failed";
   }
@@ -66,5 +70,24 @@ export class LinErrorCollection extends LinError {
 
   public isEmpty() {
     return this.errors.length === 0;
+  }
+}
+
+export class LinRuntimeError extends LinError {
+  constructor(message: string) {
+    super(message);
+  }
+
+  public report() {
+    console.log(this.getMessage());
+  }
+
+  public getMessage() {
+    return "RuntimeError error: " + this.message;
+  }
+
+  public reportAndThrow() {
+    console.log(this.getMessage());
+    throw "Runtime error";
   }
 }

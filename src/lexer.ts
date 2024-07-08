@@ -84,6 +84,60 @@ export default class Lexer {
     this.source = source;
   }
 
+  scan(): Token[] {
+    const tokens = this.scanAll();
+    // Remove comments
+    const noComment = tokens.filter(
+      (token) => token.type !== TokenType.COMMENT
+    );
+
+    // Remove redundant indentation
+    const noRedundantIndentation = this.removeRedundantIndentation(noComment);
+
+    // Remove consecutive newlines
+    const noConsecutiveNewlines = this.removeConsecutiveNewlines(
+      noRedundantIndentation
+    );
+    return noConsecutiveNewlines;
+  }
+  private removeConsecutiveNewlines(noRedundantIndentation: Token[]) {
+    const noConsecutiveNewlines: Token[] = [];
+    for (let i = 0; i < noRedundantIndentation.length; i++) {
+      if (
+        i == 0 ||
+        noRedundantIndentation[i].type != TokenType.NEWLINE ||
+        noRedundantIndentation[i - 1].type != TokenType.NEWLINE
+      ) {
+        noConsecutiveNewlines.push(noRedundantIndentation[i]);
+      }
+    }
+
+    return noConsecutiveNewlines;
+  }
+  private removeRedundantIndentation(noComment: Token[]) {
+    const noRedundantIndentation: Token[] = [];
+    for (let i = 0; i < noComment.length; i++) {
+      const token1 = noComment[i].type;
+      const token2 =
+        i + 1 < noComment.length ? noComment[i + 1].type : TokenType.EOF;
+      const token3 =
+        i + 2 < noComment.length ? noComment[i + 2].type : TokenType.EOF;
+
+      if (
+        token1 == TokenType.DEDENT &&
+        token2 == TokenType.NEWLINE &&
+        token3 == TokenType.INDENT
+      ) {
+        noRedundantIndentation.push(noComment[i + 1]);
+        i += 2;
+        continue;
+      }
+
+      noRedundantIndentation.push(noComment[i]);
+    }
+
+    return noRedundantIndentation;
+  }
   // Lexical analysis
   scanAll(): Token[] {
     while (!this.isAtEnd()) {
@@ -337,7 +391,7 @@ export default class Lexer {
       new Token(
         type,
         lexeme,
-        literal || null,
+        literal ?? null,
         this.lineNumber,
         this.columnNumber
       )
