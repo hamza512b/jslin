@@ -98,8 +98,29 @@ export default class Lexer {
     const noConsecutiveNewlines = this.removeConsecutiveNewlines(
       noRedundantIndentation
     );
-    return noConsecutiveNewlines;
+
+    const trimmedNewlines = this.trimNewLinesLeft(noConsecutiveNewlines);
+    return trimmedNewlines;
   }
+  private trimNewLinesLeft(noConsecutiveNewlines: Token[]) {
+    const trimmedNewlines: Token[] = [];
+    let haveSeenOtherThanNewline = false;
+    for (let i = 0; i < noConsecutiveNewlines.length; i++) {
+      if (
+        noConsecutiveNewlines[i].type === TokenType.NEWLINE &&
+        !haveSeenOtherThanNewline
+      ) {
+        continue;
+      }
+
+      haveSeenOtherThanNewline = true;
+
+      trimmedNewlines.push(noConsecutiveNewlines[i]);
+    }
+
+    return trimmedNewlines;
+  }
+
   private removeConsecutiveNewlines(noRedundantIndentation: Token[]) {
     const noConsecutiveNewlines: Token[] = [];
     for (let i = 0; i < noRedundantIndentation.length; i++) {

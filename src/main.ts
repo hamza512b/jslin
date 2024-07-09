@@ -10,18 +10,20 @@ export function run(source: string) {
   const lexer = new Lexer(source);
   const tokens = lexer.scan();
 
-  for (const token of tokens) {
-    console.log(
-      `${formatTokenType(token.type)}${!!token.literal ? ": " : ""}${
-        token.literal || ""
-      }`
-    );
-  }
+  // // Debugging tokens
+  // for (const token of tokens) {
+  //   console.log(
+  //     `${formatTokenType(token.type)}${!!token.literal ? ": " : ""}${
+  //       token.literal || ""
+  //     }`
+  //   );
+  // }
 
   const parser = new Parser(tokens);
   const statements = parser.parse();
 
-  printAst(statements);
+  // // Debugging AST
+  // printAst(statements);
 
   const interpreter = new Interpreter(standardState);
   interpreter.interpret(statements);
@@ -32,4 +34,4 @@ export function runFile(path: string) {
   run(source);
 }
 
-runFile("test.txt");
+runFile("test.lin");

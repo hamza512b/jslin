@@ -1,10 +1,9 @@
+# Compute the nth Fibonacci example using recursion
 DEF FIBONACCI_SEQUENCE n
     IF n < 2
         RETURN n
         
     RETURN (FIBONACCI_SEQUENCE n - 1) + (FIBONACCI_SEQUENCE n - 2)
 
-INIT before (CLOCK)
+# Call function and print result
 PRINT (FIBONACCI_SEQUENCE 10)
-INIT after (CLOCK)
-PRINT (after - before)
