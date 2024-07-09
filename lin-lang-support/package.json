@@ -1,0 +1,25 @@
+{
+  "name": "lin-lang",
+  "displayName": "LIN lang",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.91.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "lin",
+      "aliases": ["LIN", "lin"],
+      "extensions": [".lin"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "lin",
+      "scopeName": "source.lin",
+      "path": "./syntaxes/lin.tmLanguage.json"
+    }]
+  }
+}

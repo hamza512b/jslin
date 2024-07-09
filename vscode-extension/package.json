@@ -1,0 +1,19 @@
+{
+  "contributes": {
+    "languages": [
+      {
+        "id": "lin",
+        "extensions": [
+          ".lin"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "lin",
+        "scopeName": "source.lin",
+        "path": "./syntaxes/lin.tmGrammar.json"
+      }
+    ]
+  }
+}
