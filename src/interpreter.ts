@@ -314,7 +314,7 @@ export default class Interpreter implements ExprVisitor<any>, CmdVisitor<void> {
     if (a == null && b == null) return true;
     if (a == null) return false;
 
-    return a.equals(b);
+    return a === b;
   }
 
   public visitConditionCmd(cmd: CmdCondition): any {
