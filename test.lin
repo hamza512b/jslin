@@ -11,6 +11,6 @@ DEF FIZ_BUZ n
     RETURN none
 
 INIT i 1
-WHILE i < 4
-    PRINT (FIZ_BUZ i)
+WHILE i < 100
+    PRINT i (FIZ_BUZ i)
     SET i i + 1
